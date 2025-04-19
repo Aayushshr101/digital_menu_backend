@@ -50,6 +50,8 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
     res.cookie('token', 'logout', {
         httpOnly: true,
+        sameSite: "None",
+        secure: true,
         expires: new Date(Date.now())              //removing cookie from browser
     })
     res.json({ msg: 'logged out' })
