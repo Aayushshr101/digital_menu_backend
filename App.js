@@ -25,7 +25,7 @@ import usersRouter from './routes/userRoutes.js'
 
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000','https://digital-menu-frontend-sable.vercel.app'],
     credentials: true,
     optionsSuccessStatus: 200
 }
