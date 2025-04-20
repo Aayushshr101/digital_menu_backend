@@ -21,7 +21,8 @@ import menuRouter from './routes/menuRoutes.js'
 import categoryrRouter from './routes/categoryRoutes.js'
 import tableRouter from './routes/tableRoutes.js'
 import orderRouter from './routes/orderRoutes.js'
-import usersRouter from './routes/userRoutes.js'
+import statsRouter from './routes/statisticsRoutes.js'
+import paymentRouter from './routes/paymentRoutes.js'
 
 
 const corsOptions = {
@@ -49,6 +50,8 @@ app.use('/api/v1/menu',menuRouter);
 app.use('/api/v1/categories',categoryrRouter);
 app.use('/api/v1/tables',tableRouter);
 app.use('/api/v1/orders',orderRouter);
+app.use('/api/v1/stats',statsRouter);
+app.use('/api/v1/payments',paymentRouter);
 
 
 app.use(notFoundMiddleware)

@@ -2,16 +2,21 @@ import express from "express";
 const router = express.Router()
 
 import { authenticateUser } from "../middlewares/atuh.js";
-import {
-    getDailyStats,
-    getWeeklyStats,
-    getMonthlyStats,
-    getCustomRangeStats
-} from "../controllers/statisticsController.js"
+import StatisticsController from "../controllers/statisticsController.js"
 
-router.get("/daily", authenticateUser, getDailyStats)
-router.get("/weekly", authenticateUser, getWeeklyStats)
-router.get("/monthly", authenticateUser, getMonthlyStats)
-router.get("/custom", authenticateUser, getCustomRangeStats)
+// Dashboard statistics routes - all protected with authentication
+router.get('/dashboard', authenticateUser, StatisticsController.getDashboardStats);
+router.get('/daily-revenue', authenticateUser, StatisticsController.getDailyRevenue);
+router.get('/weekly-revenue', authenticateUser, StatisticsController.getWeeklyRevenue);
+router.get('/monthly-revenue', authenticateUser, StatisticsController.getMonthlyRevenue);
+router.get('/most-sold-items', authenticateUser, StatisticsController.getMostSoldItems);
+router.get('/revenue-by-category', authenticateUser, StatisticsController.getRevenueByCategory);
+router.get('/year-over-year', authenticateUser, StatisticsController.getYearOverYearGrowth);
+router.get('/order-status', authenticateUser, StatisticsController.getOrderStatusDistribution);
+router.get('/payment-methods', authenticateUser, StatisticsController.getPaymentMethodDistribution);
+router.get('/hourly-distribution', authenticateUser, StatisticsController.getHourlyOrderDistribution);
 
-export default router
+// Get all dashboard stats in one call
+router.get('/all', authenticateUser, StatisticsController.getAllDashboardStats);
+
+export default router;
