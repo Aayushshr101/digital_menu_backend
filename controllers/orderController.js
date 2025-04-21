@@ -13,7 +13,7 @@ const getAllOrders = async (req, res) => {
 }
 
 const createOrder = async (req, res) => {
-    const { table, items, total_amount } = req.body
+    const { table, items, total_amount, payment_method } = req.body
 
     if (!table || !items || items.length === 0 || !total_amount) {
         throw new HttpError('Please provide all required values', StatusCodes.BAD_REQUEST)
@@ -46,11 +46,19 @@ const createOrder = async (req, res) => {
         throw new HttpError('Invalid table', StatusCodes.BAD_REQUEST)
     }
 
+    // Validate payment method if provided
+    const validPaymentMethods = ['cash', 'online_payment']
+    const orderPaymentMethod = payment_method && validPaymentMethods.includes(payment_method) 
+        ? payment_method 
+        : 'cash' // Default to cash if not provided or invalid
+
     const order = await Order.create({
         order_number: `ORD-${Date.now()}`,
         table,
         items,
-        total_amount
+        total_amount,
+        payment_method: orderPaymentMethod,
+        payment_status: 'pending' // Default payment status is pending
     })
 
     await Table.findByIdAndUpdate(table, { status: 'occupied', current_order: order._id })
@@ -79,7 +87,7 @@ const getSingleOrder = async (req, res) => {
 
 const updateOrder = async (req, res) => {
     const { id: orderId } = req.params
-    const { items, total_amount } = req.body
+    const { items, total_amount,payment_status } = req.body
 
     // Validate that each item has a price if items are being updated
     if (items) {
@@ -104,7 +112,7 @@ const updateOrder = async (req, res) => {
 
     const order = await Order.findOneAndUpdate(
         { _id: orderId },
-        { items, total_amount },
+        { items, total_amount,payment_status },
         { new: true, runValidators: true }
     )
     .populate('table')

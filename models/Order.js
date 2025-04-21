@@ -46,27 +46,14 @@ const OrderSchema = new mongoose.Schema({
     // Updated payment_status to include 'failed' for eSewa integration
     payment_status: {
         type: String,
-        enum: ['pending', 'paid', 'refunded', 'failed'],
+        enum: ['pending', 'paid'],
         default: 'pending',
     },
     // Updated payment_method to include 'esewa'
     payment_method: {
         type: String,
-        enum: ['cash', 'card', 'esewa', 'not_paid'],
-        default: 'not_paid',
-    },
-    // New fields for eSewa payment integration
-    payment_transaction_id: {
-        type: String,
-        // This will store the transaction ID generated for eSewa
-    },
-    payment_id: {
-        type: String,
-        // This will store the reference ID returned by eSewa after successful payment
-    },
-    payment_date: {
-        type: Date,
-        // This will store when the payment was completed
+        enum: ['cash', 'online_payment'],
+        default: 'cash',
     },
 }, { timestamps: true });
 
