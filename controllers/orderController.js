@@ -8,7 +8,7 @@ const getAllOrders = async (req, res) => {
         .populate('table')
         .populate('items.item')
         .lean()
-    
+    console.log(orders)
     res.status(StatusCodes.OK).json({ orders, count: orders.length })
 }
 
