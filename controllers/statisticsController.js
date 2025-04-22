@@ -447,7 +447,7 @@ export const StatisticsController = {
       ]);
       
       // Format the result
-      const methods = ['cash', 'card'];
+      const methods = ['cash', 'online_payment'];
       const result = methods.map(method => {
         const found = paymentDistribution.find(item => item._id === method);
         return {
