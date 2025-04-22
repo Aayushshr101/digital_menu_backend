@@ -23,6 +23,7 @@ import tableRouter from './routes/tableRoutes.js'
 import orderRouter from './routes/orderRoutes.js'
 import statsRouter from './routes/statisticsRoutes.js'
 import paymentRouter from './routes/paymentRoutes.js'
+import qrRouter from './routes/qrRoute.js'
 
 
 const corsOptions = {
@@ -52,6 +53,7 @@ app.use('/api/v1/tables',tableRouter);
 app.use('/api/v1/orders',orderRouter);
 app.use('/api/v1/stats',statsRouter);
 app.use('/api/v1/payments',paymentRouter);
+app.use('/api/v1/qr',qrRouter);
 
 
 app.use(notFoundMiddleware)
