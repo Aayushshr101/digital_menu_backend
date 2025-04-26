@@ -42,12 +42,6 @@ const updateTable = async (req, res) => {
     const { id: tableId } = req.params
     const { table_number, capacity } = req.body
 
-    if (table_number) {
-        const tableExists = await Table.findOne({ table_number, _id: { $ne: tableId } })
-        if (tableExists) {
-            throw new HttpError('Table with this number already exists', StatusCodes.BAD_REQUEST)
-        }
-    }
 
     const table = await Table.findOneAndUpdate(
         { _id: tableId },
